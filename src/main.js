@@ -1,10 +1,46 @@
 const darkModeToggle = document.getElementById('darkModeToggle');
 const bodyElement = document.body;
+const quickPostButton = document.getElementById('quickPostButton');
+const quickPostModal = document.getElementById('quickPostModal');
+const closeModal = document.getElementById('closeModal');
+const quickPostForm = document.getElementById('quickPostForm');
+const postImageInput = document.getElementById('postImage');
+const imagePreview = document.getElementById('imagePreview');
 
 darkModeToggle.addEventListener('click', () => {
   bodyElement.classList.toggle('dark');
   darkModeToggle.textContent = bodyElement.classList.contains('dark') ? '☀️' : '🌙';
   localStorage.setItem('theme', bodyElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+quickPostButton.addEventListener('click', () => {
+  quickPostModal.style.display = 'flex';
+});
+
+closeModal.addEventListener('click', () => {
+  quickPostModal.style.display = 'none';
+  quickPostForm.reset();
+  imagePreview.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === quickPostModal) {
+    quickPostModal.style.display = 'none';
+    quickPostForm.reset();
+    imagePreview.style.display = 'none';
+  }
+});
+
+postImageInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.src = e.target.result;
+      imagePreview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -20,7 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Load More Button
   const loadMoreButton = document.querySelector('.load-more-button');
   const newsSection = document.querySelector('.news-section');
-  let postCount = 12; // Starting post count
+  let postCount = 12;
 
   loadMoreButton.addEventListener('click', () => {
     const newPosts = [
@@ -75,8 +111,40 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     postCount += 5;
+    attachPostClickListeners();
+  });
 
-    // Re-attach click event listeners to new posts
+  // Quick Post Form Submission
+  quickPostForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const title = document.getElementById('postTitle').value;
+    const content = document.getElementById('postContent').value;
+    const category = document.getElementById('postCategory').value;
+    const image = postImageInput.files[0];
+    let imageUrl = `https://via.placeholder.com/80x60?text=${category}`;
+
+    if (image) {
+      imageUrl = URL.createObjectURL(image);
+    }
+
+    const postElement = document.createElement('article');
+    postElement.className = 'post';
+    postElement.innerHTML = `
+      <div class="post-content">
+        <div class="post-text">
+          <h2 class="post-title">${title}</h2>
+          <div class="post-meta">
+            <span class="post-time">Just now</span> •
+            <a href="#" class="comments-link">💬 0 Comments</a>
+          </div>
+        </div>
+        <img src="${imageUrl}" alt="Cover photo" class="post-image">
+      </div>
+    `;
+    newsSection.prepend(postElement);
+    quickPostModal.style.display = 'none';
+    quickPostForm.reset();
+    imagePreview.style.display = 'none';
     attachPostClickListeners();
   });
 
@@ -85,11 +153,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const posts = document.querySelectorAll('.post');
     posts.forEach(post => {
       post.addEventListener('click', () => {
-        // Remove active class from all posts
         posts.forEach(p => p.classList.remove('post--active'));
-        // Add active class to clicked post
         post.classList.add('post--active');
-        // Log post title to console (placeholder for future action)
         const title = post.querySelector('.post-title').textContent;
         console.log(`Clicked post: ${title}`);
       });
