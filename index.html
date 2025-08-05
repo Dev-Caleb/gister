@@ -18,7 +18,13 @@
     </div>
   </header>
 
-
+  <nav class="nav">
+    <ul class="nav-list">
+      <li><a href="#" class="nav-link">Home</a></li>
+      <li><a href="#" class="nav-link">Hot</a></li>
+      <li><a href="#" class="nav-link">Trending</a></li>
+    </ul>
+  </nav>
 
   <main class="main-content">
     <div class="category-section">
@@ -54,7 +60,7 @@
       <article class="post">
         <div class="post-content">
           <div class="post-text">
-            <h2 class="post-title">Who else noticed this in Abuja there seem to be flood heavily this days?</h2>
+            <h2 class="post-title">Who else noticed this in Abuja?</h2>
             <div class="post-meta">
               <span class="post-time">1hr ago</span> •
               <a href="#" class="comments-link">💬 12 Comments</a>
@@ -66,7 +72,7 @@
       <article class="post">
         <div class="post-content">
           <div class="post-text">
-            <h2 class="post-title"> I Don Slim Finish! My Journey As A Gigolo Has Ended - Nairaland's Mr Handsome Cries «</h2>
+            <h2 class="post-title">Best Phones under ₦150k (2025)</h2>
             <div class="post-meta">
               <span class="post-time">2hrs ago</span> •
               <a href="#" class="comments-link">💬 8 Comments</a>
@@ -78,7 +84,7 @@
       <article class="post">
         <div class="post-content">
           <div class="post-text">
-            <h2 class="post-title">Conjoined Twin Gets Married While Her Sister Remains Single (Photos) </h2>
+            <h2 class="post-title">Lagos Foodies, where’s the best amala spot?</h2>
             <div class="post-meta">
               <span class="post-time">3hrs ago</span> •
               <a href="#" class="comments-link">💬 20 Comments</a>
@@ -90,7 +96,7 @@
       <article class="post">
         <div class="post-content">
           <div class="post-text">
-            <h2 class="post-title">Peter Obi: If Service Is The Motive, Turning The Tide In Four Years Is Possible </h2>
+            <h2 class="post-title">New Tech Startups to Watch in Nigeria</h2>
             <div class="post-meta">
               <span class="post-time">4hrs ago</span> •
               <a href="#" class="comments-link">💬 15 Comments</a>
@@ -102,7 +108,7 @@
       <article class="post">
         <div class="post-content">
           <div class="post-text">
-            <h2 class="post-title">Falana Slams NASS For Inserting ₦6.9 Trillion Worth Of Projects Into 2025 Budget </h2>
+            <h2 class="post-title">Election Updates: What’s Happening?</h2>
             <div class="post-meta">
               <span class="post-time">5hrs ago</span> •
               <a href="#" class="comments-link">💬 25 Comments</a>
@@ -114,8 +120,7 @@
       <article class="post">
         <div class="post-content">
           <div class="post-text">
-            <h2 class="post-title">
-» I Will Do One Term, Serve You Food Are Signs Of Desperation – Reuben Abati </h2>
+            <h2 class="post-title">Top 5 Beaches for a Weekend Getaway</h2>
             <div class="post-meta">
               <span class="post-time">6hrs ago</span> •
               <a href="#" class="comments-link">💬 10 Comments</a>
@@ -200,7 +205,55 @@
     <button class="load-more-button">Load More</button>
   </main>
 
-  <button class="quick-post-button">➕</button>
+  <div id="quickPostModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Create New Post</h2>
+      <form id="quickPostForm">
+        <label for="postTitle">Title</label>
+        <input type="text" id="postTitle" required>
+        <label for="postContent">Content</label>
+        <textarea id="postContent" required></textarea>
+        <label for="postCategory">Category</label>
+        <select id="postCategory" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="Politics">Politics</option>
+          <option value="Business">Business</option>
+          <option value="Education">Education</option>
+          <option value="Health">Health</option>
+          <option value="Travel">Travel</option>
+          <option value="Family">Family</option>
+          <option value="Culture">Culture</option>
+          <option value="Christianity">Christianity</option>
+          <option value="Islam">Islam</option>
+          <option value="Food">Food</option>
+          <option value="Pets">Pets</option>
+          <option value="Agriculture">Agriculture</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Music/Radio">Music/Radio</option>
+          <option value="Celebrities">Celebrities</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Sports">Sports</option>
+          <option value="Gaming">Gaming</option>
+          <option value="Literature">Literature</option>
+          <option value="Programming">Programming</option>
+          <option value="Computers">Computers</option>
+          <option value="Phones">Phones</option>
+          <option value="Technology Market">Technology Market</option>
+          <option value="Startups">Startups</option>
+          <option value="Lifestyle Trends">Lifestyle Trends</option>
+          <option value="News">News</option>
+          <option value="Economy">Economy</option>
+        </select>
+        <label for="postImage">Cover Photo</label>
+        <input type="file" id="postImage" accept="image/*" required>
+        <img id="imagePreview" src="" alt="Image preview" style="display: none; max-width: 100px; border-radius: 8px; margin-top: 0.5rem;">
+        <button type="submit" class="submit-button">Post</button>
+      </form>
+    </div>
+  </div>
+
+  <button id="quickPostButton" class="quick-post-button">➕</button>
 
   <footer class="footer">
     <div class="footer-links">
