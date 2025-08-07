@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Gister",
+  "version": "1.0.0",
+  "description": "Nairaland-inspired forum with 20 categories, Campus Projects (20 disciplines, fuzzy search), 12 posts, quick post modal, no navbar, minimal UI.",
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/main.js", "src/post.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "index.html",
+        "campus-projects.html",
+        "post.html",
+        "src/style.css",
+        "src/main.js",
+        "src/post.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

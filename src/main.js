@@ -1,166 +1,102 @@
-const darkModeToggle = document.getElementById('darkModeToggle');
-const bodyElement = document.body;
-const quickPostButton = document.getElementById('quickPostButton');
-const quickPostModal = document.getElementById('quickPostModal');
-const closeModal = document.getElementById('closeModal');
-const quickPostForm = document.getElementById('quickPostForm');
-const postImageInput = document.getElementById('postImage');
-const imagePreview = document.getElementById('imagePreview');
-
-darkModeToggle.addEventListener('click', () => {
-  bodyElement.classList.toggle('dark');
-  darkModeToggle.textContent = bodyElement.classList.contains('dark') ? '☀️' : '🌙';
-  localStorage.setItem('theme', bodyElement.classList.contains('dark') ? 'dark' : 'light');
-});
-
-quickPostButton.addEventListener('click', () => {
-  quickPostModal.style.display = 'flex';
-});
-
-closeModal.addEventListener('click', () => {
-  quickPostModal.style.display = 'none';
-  quickPostForm.reset();
-  imagePreview.style.display = 'none';
-});
-
-window.addEventListener('click', (event) => {
-  if (event.target === quickPostModal) {
-    quickPostModal.style.display = 'none';
-    quickPostForm.reset();
-    imagePreview.style.display = 'none';
-  }
-});
-
-postImageInput.addEventListener('change', (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      imagePreview.src = e.target.result;
-      imagePreview.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    bodyElement.classList.add('dark');
-    darkModeToggle.textContent = '☀️';
-  } else {
-    bodyElement.classList.remove('dark');
-    darkModeToggle.textContent = '🌙';
-  }
-
-  // Load More Button
-  const loadMoreButton = document.querySelector('.load-more-button');
-  const newsSection = document.querySelector('.news-section');
-  let postCount = 12;
-
-  loadMoreButton.addEventListener('click', () => {
-    const newPosts = [
-      {
-        title: `Post ${postCount + 1}: Tech Innovation in Nigeria`,
-        time: `${postCount + 1}hrs ago`,
-        comments: Math.floor(Math.random() * 30) + 5,
-        image: `https://via.placeholder.com/80x60?text=Tech${postCount + 1}`
-      },
-      {
-        title: `Post ${postCount + 2}: Political Debate Highlights`,
-        time: `${postCount + 2}hrs ago`,
-        comments: Math.floor(Math.random() * 30) + 5,
-        image: `https://via.placeholder.com/80x60?text=Politics${postCount + 2}`
-      },
-      {
-        title: `Post ${postCount + 3}: Best Local Restaurants`,
-        time: `${postCount + 3}hrs ago`,
-        comments: Math.floor(Math.random() * 30) + 5,
-        image: `https://via.placeholder.com/80x60?text=Food${postCount + 3}`
-      },
-      {
-        title: `Post ${postCount + 4}: Startup Funding Tips`,
-        time: `${postCount + 4}hrs ago`,
-        comments: Math.floor(Math.random() * 30) + 5,
-        image: `https://via.placeholder.com/80x60?text=Startups${postCount + 4}`
-      },
-      {
-        title: `Post ${postCount + 5}: Lifestyle Trends 2025`,
-        time: `${postCount + 5}hrs ago`,
-        comments: Math.floor(Math.random() * 30) + 5,
-        image: `https://via.placeholder.com/80x60?text=Lifestyle${postCount + 5}`
-      }
-    ];
-
-    newPosts.forEach(post => {
-      const postElement = document.createElement('article');
-      postElement.className = 'post';
-      postElement.innerHTML = `
-        <div class="post-content">
-          <div class="post-text">
-            <h2 class="post-title">${post.title}</h2>
-            <div class="post-meta">
-              <span class="post-time">${post.time}</span> •
-              <a href="#" class="comments-link">💬 ${post.comments} Comments</a>
-            </div>
-          </div>
-          <img src="${post.image}" alt="Cover photo" class="post-image">
-        </div>
-      `;
-      newsSection.appendChild(postElement);
-    });
-
-    postCount += 5;
-    attachPostClickListeners();
-  });
-
-  // Quick Post Form Submission
-  quickPostForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const title = document.getElementById('postTitle').value;
-    const content = document.getElementById('postContent').value;
-    const category = document.getElementById('postCategory').value;
-    const image = postImageInput.files[0];
-    let imageUrl = `https://via.placeholder.com/80x60?text=${category}`;
-
-    if (image) {
-      imageUrl = URL.createObjectURL(image);
-    }
-
-    const postElement = document.createElement('article');
-    postElement.className = 'post';
-    postElement.innerHTML = `
-      <div class="post-content">
-        <div class="post-text">
-          <h2 class="post-title">${title}</h2>
-          <div class="post-meta">
-            <span class="post-time">Just now</span> •
-            <a href="#" class="comments-link">💬 0 Comments</a>
-          </div>
-        </div>
-        <img src="${imageUrl}" alt="Cover photo" class="post-image">
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gister 🟣</title>
+  <link href="./src/style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">Gister 🟣</h1>
+      <div class="header-actions">
+        <input type="text" placeholder="Search..." class="search-input">
+        <a href="#" class="login-link">Login/Signup</a>
+        <button id="darkModeToggle" class="dark-mode-toggle">🌙</button>
       </div>
-    `;
-    newsSection.prepend(postElement);
-    quickPostModal.style.display = 'none';
-    quickPostForm.reset();
-    imagePreview.style.display = 'none';
-    attachPostClickListeners();
-  });
-
-  // Post Click Action
-  function attachPostClickListeners() {
-    const posts = document.querySelectorAll('.post');
-    posts.forEach(post => {
-      post.addEventListener('click', () => {
-        posts.forEach(p => p.classList.remove('post--active'));
-        post.classList.add('post--active');
-        const title = post.querySelector('.post-title').textContent;
-        console.log(`Clicked post: ${title}`);
-      });
-    });
-  }
-
-  // Initial attachment of click listeners
-  attachPostClickListeners();
-});
+    </div>
+  </header>
+  <main class="main-content">
+    <div class="category-section">
+      <a href="#" class="category-link category-link--active" data-category="all">All</a>
+      <a href="campus-projects.html" class="category-link" data-category="Campus Projects">Campus Projects</a>
+      <a href="#" class="category-link" data-category="Politics">Politics</a>
+      <a href="#" class="category-link" data-category="Business">Business</a>
+      <a href="#" class="category-link" data-category="Education">Education</a>
+      <a href="#" class="category-link" data-category="Health">Health</a>
+      <a href="#" class="category-link" data-category="Travel">Travel</a>
+      <a href="#" class="category-link" data-category="Family">Family</a>
+      <a href="#" class="category-link" data-category="Culture">Culture</a>
+      <a href="#" class="category-link" data-category="Religion">Religion</a>
+      <a href="#" class="category-link" data-category="Food">Food</a>
+      <a href="#" class="category-link" data-category="Pets">Pets</a>
+      <a href="#" class="category-link" data-category="Agriculture">Agriculture</a>
+      <a href="#" class="category-link" data-category="Entertainment">Entertainment</a>
+      <a href="#" class="category-link" data-category="Fashion">Fashion</a>
+      <a href="#" class="category-link" data-category="Sports">Sports</a>
+      <a href="#" class="category-link" data-category="Literature">Literature</a>
+      <a href="#" class="category-link" data-category="Technology">Technology</a>
+      <a href="#" class="category-link" data-category="Startups">Startups</a>
+      <a href="#" class="category-link" data-category="Lifestyle Trends">Lifestyle Trends</a>
+      <a href="#" class="category-link" data-category="News">News</a>
+      <a href="#" class="category-link" data-category="Economy">Economy</a>
+    </div>
+    <div class="news-section">
+      <!-- Posts dynamically loaded by main.js -->
+    </div>
+    <button class="load-more-button">Load More</button>
+  </main>
+  <div id="quickPostModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Create New Post</h2>
+      <form id="quickPostForm">
+        <label for="postTitle">Title</label>
+        <input type="text" id="postTitle" name="postTitle" required>
+        <label for="postContent">Content</label>
+        <textarea id="postContent" name="postContent" required></textarea>
+        <label for="postCategory">Category</label>
+        <select id="postCategory" name="postCategory" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="Politics">Politics</option>
+          <option value="Business">Business</option>
+          <option value="Education">Education</option>
+          <option value="Health">Health</option>
+          <option value="Travel">Travel</option>
+          <option value="Family">Family</option>
+          <option value="Culture">Culture</option>
+          <option value="Religion">Religion</option>
+          <option value="Food">Food</option>
+          <option value="Pets">Pets</option>
+          <option value="Agriculture">Agriculture</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Sports">Sports</option>
+          <option value="Literature">Literature</option>
+          <option value="Technology">Technology</option>
+          <option value="Startups">Startups</option>
+          <option value="Lifestyle Trends">Lifestyle Trends</option>
+          <option value="News">News</option>
+          <option value="Economy">Economy</option>
+        </select>
+        <label for="postImage">Cover Photo</label>
+        <input type="file" id="postImage" name="postImage" accept="image/*">
+        <img id="imagePreview" src="" alt="Image preview" style="display: none; max-width: 100px; border-radius: 8px; margin-top: 0.5rem;">
+        <button type="submit" class="submit-button">Post</button>
+      </form>
+    </div>
+  </div>
+  <button id="quickPostButton" class="quick-post-button">➕</button>
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#" class="footer-link">About</a>
+      <a href="#" class="footer-link">Contact</a>
+      <a href="#" class="footer-link">Terms</a>
+      <a href="#" class="footer-link">Social</a>
+      <a href="#" class="footer-link">FAQ</a>
+    </div>
+  </footer>
+  <script src="./src/main.js"></script>
+</body>
+</html>

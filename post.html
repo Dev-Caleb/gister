@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gister 🟣 - Post</title>
+  <link href="./src/style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">Gister 🟣</h1>
+      <div class="header-actions">
+        <input type="text" placeholder="Search..." class="search-input">
+        <a href="#" class="login-link">Login/Signup</a>
+        <button id="darkModeToggle" class="dark-mode-toggle">🌙</button>
+      </div>
+    </div>
+  </header>
+  <main class="main-content">
+    <article class="post">
+      <div class="post__meta">
+        <span id="postCategory">Category</span> •
+        <span id="postTime">2025-08-06</span> •
+        <span id="postLikes">👍 0 Likes</span> •
+        <a href="#" id="commentsLink" class="comments-link">💬 0 Comments</a>
+      </div>
+      <h2 id="postTitle" class="post__title">Post Title</h2>
+      <p id="postContent" class="post__content">Loading content...</p>
+      <a id="downloadLink" href="#" class="download-button" style="display: none;">Download Project</a>
+      <div class="comments-dropdown">
+        <h3>Comments</h3>
+        <div id="commentsList"></div>
+        <form id="commentForm">
+          <textarea id="commentInput" placeholder="Add a comment..." required></textarea>
+          <button type="submit" class="submit-button">Comment</button>
+        </form>
+      </div>
+    </article>
+  </main>
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#" class="footer-link">About</a>
+      <a href="#" class="footer-link">Contact</a>
+      <a href="#" class="footer-link">Terms</a>
+      <a href="#" class="footer-link">Social</a>
+      <a href="#" class="footer-link">FAQ</a>
+    </div>
+  </footer>
+  <script src="./src/post.js"></script>
+</body>
+</html>

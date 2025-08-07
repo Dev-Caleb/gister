@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Projects - Gister 🟣</title>
+  <link href="./src/style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">Gister 🟣</h1>
+      <div class="header-actions">
+        <input type="text" id="projectSearch" placeholder="Search projects..." class="search-input">
+        <a href="#" class="login-link">Login/Signup</a>
+        <button id="darkModeToggle" class="dark-mode-toggle">🌙</button>
+      </div>
+    </div>
+  </header>
+  <main class="main-content">
+    <div class="filter-section">
+      <select id="disciplineFilter" name="disciplineFilter">
+        <option value="">All Disciplines</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Electrical Engineering">Electrical Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Chemical Engineering">Chemical Engineering</option>
+        <option value="Biology">Biology</option>
+        <option value="Physics">Physics</option>
+        <option value="Chemistry">Chemistry</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="Economics">Economics</option>
+        <option value="Business Administration">Business Administration</option>
+        <option value="Accounting">Accounting</option>
+        <option value="Law">Law</option>
+        <option value="Medicine">Medicine</option>
+        <option value="Pharmacy">Pharmacy</option>
+        <option value="Nursing">Nursing</option>
+        <option value="Architecture">Architecture</option>
+        <option value="Urban Planning">Urban Planning</option>
+        <option value="Psychology">Psychology</option>
+        <option value="Sociology">Sociology</option>
+      </select>
+    </div>
+    <div class="project-section">
+      <!-- Projects dynamically loaded by post.js -->
+    </div>
+  </main>
+  <div id="uploadProjectModal" class="modal">
+    <div class="modal-content">
+      <span id="closeUploadModal" class="close">&times;</span>
+      <h2>Upload New Project</h2>
+      <form id="uploadProjectForm">
+        <label for="projectTitle">Project Title</label>
+        <input type="text" id="projectTitle" name="projectTitle" required>
+        <label for="projectDiscipline">Discipline</label>
+        <select id="projectDiscipline" name="projectDiscipline" required>
+          <option value="" disabled selected>Select a discipline</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Electrical Engineering">Electrical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Chemical Engineering">Chemical Engineering</option>
+          <option value="Biology">Biology</option>
+          <option value="Physics">Physics</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="Economics">Economics</option>
+          <option value="Business Administration">Business Administration</option>
+          <option value="Accounting">Accounting</option>
+          <option value="Law">Law</option>
+          <option value="Medicine">Medicine</option>
+          <option value="Pharmacy">Pharmacy</option>
+          <option value="Nursing">Nursing</option>
+          <option value="Architecture">Architecture</option>
+          <option value="Urban Planning">Urban Planning</option>
+          <option value="Psychology">Psychology</option>
+          <option value="Sociology">Sociology</option>
+        </select>
+        <label for="projectSubDiscipline">Sub-discipline</label>
+        <input type="text" id="projectSubDiscipline" name="projectSubDiscipline" required>
+        <label for="projectDescription">Description</label>
+        <textarea id="projectDescription" name="projectDescription" required></textarea>
+        <label for="projectFile">Project File (PDF)</label>
+        <input type="file" id="projectFile" name="projectFile" accept=".pdf" required>
+        <button type="submit" class="submit-button">Preview</button>
+      </form>
+    </div>
+  </div>
+  <button id="uploadProjectButton" class="quick-post-button">➕</button>
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#" class="footer-link">About</a>
+      <a href="#" class="footer-link">Contact</a>
+      <a href="#" class="footer-link">Terms</a>
+      <a href="#" class="footer-link">Social</a>
+      <a href="#" class="footer-link">FAQ</a>
+    </div>
+  </footer>
+  <script src="./src/post.js"></script>
+</body>
+</html>
