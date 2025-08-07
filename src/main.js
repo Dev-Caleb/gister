@@ -1,102 +1,161 @@
-<!DOCTYPE html>
-<html lang="en" class="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gister 🟣</title>
-  <link href="./src/style.css" rel="stylesheet">
-</head>
-<body>
-  <header class="header">
-    <div class="header-content">
-      <h1 class="logo">Gister 🟣</h1>
-      <div class="header-actions">
-        <input type="text" placeholder="Search..." class="search-input">
-        <a href="#" class="login-link">Login/Signup</a>
-        <button id="darkModeToggle" class="dark-mode-toggle">🌙</button>
-      </div>
-    </div>
-  </header>
-  <main class="main-content">
-    <div class="category-section">
-      <a href="#" class="category-link category-link--active" data-category="all">All</a>
-      <a href="campus-projects.html" class="category-link" data-category="Campus Projects">Campus Projects</a>
-      <a href="#" class="category-link" data-category="Politics">Politics</a>
-      <a href="#" class="category-link" data-category="Business">Business</a>
-      <a href="#" class="category-link" data-category="Education">Education</a>
-      <a href="#" class="category-link" data-category="Health">Health</a>
-      <a href="#" class="category-link" data-category="Travel">Travel</a>
-      <a href="#" class="category-link" data-category="Family">Family</a>
-      <a href="#" class="category-link" data-category="Culture">Culture</a>
-      <a href="#" class="category-link" data-category="Religion">Religion</a>
-      <a href="#" class="category-link" data-category="Food">Food</a>
-      <a href="#" class="category-link" data-category="Pets">Pets</a>
-      <a href="#" class="category-link" data-category="Agriculture">Agriculture</a>
-      <a href="#" class="category-link" data-category="Entertainment">Entertainment</a>
-      <a href="#" class="category-link" data-category="Fashion">Fashion</a>
-      <a href="#" class="category-link" data-category="Sports">Sports</a>
-      <a href="#" class="category-link" data-category="Literature">Literature</a>
-      <a href="#" class="category-link" data-category="Technology">Technology</a>
-      <a href="#" class="category-link" data-category="Startups">Startups</a>
-      <a href="#" class="category-link" data-category="Lifestyle Trends">Lifestyle Trends</a>
-      <a href="#" class="category-link" data-category="News">News</a>
-      <a href="#" class="category-link" data-category="Economy">Economy</a>
-    </div>
-    <div class="news-section">
-      <!-- Posts dynamically loaded by main.js -->
-    </div>
-    <button class="load-more-button">Load More</button>
-  </main>
-  <div id="quickPostModal" class="modal">
-    <div class="modal-content">
-      <span id="closeModal" class="close">&times;</span>
-      <h2>Create New Post</h2>
-      <form id="quickPostForm">
-        <label for="postTitle">Title</label>
-        <input type="text" id="postTitle" name="postTitle" required>
-        <label for="postContent">Content</label>
-        <textarea id="postContent" name="postContent" required></textarea>
-        <label for="postCategory">Category</label>
-        <select id="postCategory" name="postCategory" required>
-          <option value="" disabled selected>Select a category</option>
-          <option value="Politics">Politics</option>
-          <option value="Business">Business</option>
-          <option value="Education">Education</option>
-          <option value="Health">Health</option>
-          <option value="Travel">Travel</option>
-          <option value="Family">Family</option>
-          <option value="Culture">Culture</option>
-          <option value="Religion">Religion</option>
-          <option value="Food">Food</option>
-          <option value="Pets">Pets</option>
-          <option value="Agriculture">Agriculture</option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Fashion">Fashion</option>
-          <option value="Sports">Sports</option>
-          <option value="Literature">Literature</option>
-          <option value="Technology">Technology</option>
-          <option value="Startups">Startups</option>
-          <option value="Lifestyle Trends">Lifestyle Trends</option>
-          <option value="News">News</option>
-          <option value="Economy">Economy</option>
-        </select>
-        <label for="postImage">Cover Photo</label>
-        <input type="file" id="postImage" name="postImage" accept="image/*">
-        <img id="imagePreview" src="" alt="Image preview" style="display: none; max-width: 100px; border-radius: 8px; margin-top: 0.5rem;">
-        <button type="submit" class="submit-button">Post</button>
-      </form>
-    </div>
-  </div>
-  <button id="quickPostButton" class="quick-post-button">➕</button>
-  <footer class="footer">
-    <div class="footer-links">
-      <a href="#" class="footer-link">About</a>
-      <a href="#" class="footer-link">Contact</a>
-      <a href="#" class="footer-link">Terms</a>
-      <a href="#" class="footer-link">Social</a>
-      <a href="#" class="footer-link">FAQ</a>
-    </div>
-  </footer>
-  <script src="./src/main.js"></script>
-</body>
-</html>
+document.addEventListener('DOMContentLoaded', () => {
+  let posts = JSON.parse(localStorage.getItem('posts')) || [
+    { id: 1, title: "Who else noticed this in Abuja?", content: "Observations about recent changes in Abuja.", category: "News", time: "2025-08-06T09:00:00Z", comments: 12, likes: 0, image: "https://via.placeholder.com/80x60?text=Abuja" },
+    { id: 2, title: "Best Phones under ₦150k (2025)", content: "Top budget smartphones in Nigeria.", category: "Technology", time: "2025-08-06T08:00:00Z", comments: 8, likes: 0, image: "https://via.placeholder.com/80x60?text=Phones" },
+    { id: 3, title: "Lagos Foodies, where’s the best amala spot?", content: "Recommendations for the best amala spots in Lagos.", category: "Food", time: "2025-08-06T07:00:00Z", comments: 20, likes: 0, image: "https://via.placeholder.com/80x60?text=Food" },
+    { id: 4, title: "New Tech Startups to Watch in Nigeria", content: "Promising tech startups emerging in Nigeria.", category: "Startups", time: "2025-08-06T06:00:00Z", comments: 15, likes: 0, image: "https://via.placeholder.com/80x60?text=Startups" },
+    { id: 5, title: "Election Updates: What’s Happening?", content: "Latest updates on Nigerian elections.", category: "Politics", time: "2025-08-06T05:00:00Z", comments: 25, likes: 0, image: "https://via.placeholder.com/80x60?text=Election" },
+    { id: 6, title: "Top 5 Beaches for a Weekend Getaway", content: "Best beaches for a quick getaway in Nigeria.", category: "Travel", time: "2025-08-06T04:00:00Z", comments: 10, likes: 0, image: "https://via.placeholder.com/80x60?text=Beaches" },
+    { id: 7, title: "Crypto Trends in Nigeria 2025", content: "Emerging cryptocurrency trends in Nigeria.", category: "Economy", time: "2025-08-06T03:00:00Z", comments: 18, likes: 0, image: "https://via.placeholder.com/80x60?text=Crypto" },
+    { id: 8, title: "Why Lagos Traffic is Getting Worse", content: "Analysis of worsening traffic in Lagos.", category: "News", time: "2025-08-06T02:00:00Z", comments: 30, likes: 0, image: "https://via.placeholder.com/80x60?text=Traffic" },
+    { id: 9, title: "Latest Nollywood Movies to Watch", content: "New Nollywood releases for 2025.", category: "Entertainment", time: "2025-08-06T01:00:00Z", comments: 14, likes: 0, image: "https://via.placeholder.com/80x60?text=Movies" },
+    { id: 10, title: "Tips for Starting a Side Hustle", content: "Practical tips for launching a side hustle.", category: "Business", time: "2025-08-05T23:00:00Z", comments: 22, likes: 0, image: "https://via.placeholder.com/80x60?text=Hustle" },
+    { id: 11, title: "Power Outages: What’s the Solution?", content: "Proposed solutions for Nigeria’s power outages.", category: "News", time: "2025-08-05T22:00:00Z", comments: 28, likes: 0, image: "https://via.placeholder.com/80x60?text=Power" },
+    { id: 12, title: "Fitness Trends Gaining Traction", content: "Popular fitness trends in Nigeria.", category: "Lifestyle Trends", time: "2025-08-05T21:00:00Z", comments: 16, likes: 0, image: "https://via.placeholder.com/80x60?text=Fitness" }
+  ];
+  localStorage.setItem('posts', JSON.stringify(posts));
+
+  const postList = document.querySelector('.news-section');
+  const categories = document.querySelectorAll('.category-link');
+  const loadMoreButton = document.querySelector('.load-more-button');
+  const postSearch = document.querySelector('#postSearch');
+  let displayedPosts = 0;
+  const postsPerPage = 10;
+
+  function fuzzySearch(query, text) {
+    query = query.toLowerCase().replace(/[^a-z0-9]/g, '');
+    text = text.toLowerCase().replace(/[^a-z0-9]/g, '');
+    let i = 0, j = 0;
+    while (i < query.length && j < text.length) {
+      if (query[i] === text[j]) i++;
+      j++;
+    }
+    return i === query.length;
+  }
+
+  function renderPosts(postsToRender) {
+    postList.innerHTML = '';
+    postsToRender.slice(0, displayedPosts + postsPerPage).forEach(post => {
+      const postElement = document.createElement('article');
+      postElement.classList.add('post');
+      postElement.dataset.id = post.id;
+      postElement.innerHTML = `
+        <div class="post-content">
+          <div class="post-text">
+            <h2 class="post-title"><a href="post.html?id=${post.id}">${post.title}</a></h2>
+            <div class="post-meta">
+              <span class="post-time">${new Date(post.time).toLocaleString()}</span> •
+              <a href="#" class="comments-link">💬 ${post.comments} Comments</a> • ${post.category}
+            </div>
+          </div>
+          <img src="${post.image}" alt="Cover photo" class="post-image">
+        </div>
+      `;
+      postList.appendChild(postElement);
+    });
+    loadMoreButton.style.display = displayedPosts + postsPerPage >= postsToRender.length ? 'none' : 'block';
+  }
+
+  function filterPosts() {
+    const query = postSearch.value;
+    const selectedCategory = document.querySelector('.category-link--active').dataset.category;
+    let filteredPosts = selectedCategory === 'all' ? posts : posts.filter(post => post.category === selectedCategory);
+    if (query) {
+      filteredPosts = filteredPosts.filter(post =>
+        fuzzySearch(query, post.title) || fuzzySearch(query, post.content)
+      );
+    }
+    displayedPosts = 0;
+    renderPosts(filteredPosts);
+  }
+
+  categories.forEach(category => {
+    category.addEventListener('click', (e) => {
+      if (category.dataset.category === 'Campus Projects') {
+        return; // Allow navigation to campus-projects.html
+      }
+      e.preventDefault();
+      categories.forEach(c => c.classList.remove('category-link--active'));
+      category.classList.add('category-link--active');
+      displayedPosts = 0;
+      filterPosts();
+    });
+  });
+
+  loadMoreButton.addEventListener('click', () => {
+    displayedPosts += postsPerPage;
+    filterPosts();
+  });
+
+  if (postSearch) {
+    postSearch.addEventListener('input', filterPosts);
+  }
+
+  renderPosts(posts);
+
+  const quickPostButton = document.querySelector('#quickPostButton');
+  const quickPostModal = document.querySelector('#quickPostModal');
+  const quickPostForm = document.querySelector('#quickPostForm');
+  const closeModal = document.querySelector('#closeModal');
+  const postImage = document.querySelector('#postImage');
+  const imagePreview = document.querySelector('#imagePreview');
+
+  quickPostButton.addEventListener('click', () => {
+    quickPostModal.style.display = 'block';
+  });
+
+  closeModal.addEventListener('click', () => {
+    quickPostModal.style.display = 'none';
+  });
+
+  postImage.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      imagePreview.src = URL.createObjectURL(file);
+      imagePreview.style.display = 'block';
+    } else {
+      imagePreview.style.display = 'none';
+    }
+  });
+
+  quickPostForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newPost = {
+      id: posts.length + 1,
+      title: document.querySelector('#postTitle').value,
+      content: document.querySelector('#postContent').value,
+      category: document.querySelector('#postCategory').value,
+      time: new Date().toISOString(),
+      comments: 0,
+      likes: 0,
+      image: postImage.files[0] ? URL.createObjectURL(postImage.files[0]) : 'https://via.placeholder.com/80x60'
+    };
+    posts.push(newPost);
+    localStorage.setItem('posts', JSON.stringify(posts));
+    quickPostModal.style.display = 'none';
+    quickPostForm.reset();
+    imagePreview.style.display = 'none';
+    filterPosts();
+  });
+
+  const darkModeToggle = document.querySelector('#darkModeToggle');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+      document.documentElement.classList.toggle('dark');
+      darkModeToggle.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+      darkModeToggle.textContent = '☀️';
+    } else {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+      darkModeToggle.textContent = '🌙';
+    }
+  }
+});
